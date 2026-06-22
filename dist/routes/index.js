@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const authRoutes_1 = __importDefault(require("./authRoutes"));
+const productRoutes_1 = __importDefault(require("./productRoutes"));
+const machineRoutes_1 = __importDefault(require("./machineRoutes"));
+const orderRoutes_1 = __importDefault(require("./orderRoutes"));
+const paymentRoutes_1 = __importDefault(require("./paymentRoutes"));
+const machineController_1 = require("../controllers/machineController");
+const auth_1 = require("../middleware/auth");
+const router = (0, express_1.Router)();
+router.use('/auth', authRoutes_1.default);
+router.use('/products', productRoutes_1.default);
+router.use('/machines', machineRoutes_1.default);
+router.use('/orders', orderRoutes_1.default);
+router.use('/payments', paymentRoutes_1.default);
+router.get('/machine-status', auth_1.authenticateJWT, machineController_1.getMachineStatus);
+exports.default = router;
